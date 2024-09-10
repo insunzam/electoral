@@ -40,29 +40,23 @@ pc4 <- pc4 %>% rename("VH2023" = "HOMBRES", "VM2023" = "MUJERES")
 CompSex <- inner_join(p4, pc4, by="Comuna")
 CompSex <- melt(CompSex, id.vars = "Comuna") 
 
-
-
-g <- ggplot(CompSex, aes(fill=variable, y=value, x=Comuna)) +
+g21 <- ggplot(p1, aes(fill=Sexo, y=value, x=Comuna)) +
   geom_bar(stat = "identity", width = 1) +
-  coord_polar("y", start = 0) 
-#+ 
-#  theme_void() + 
-#  theme(legend.position="dodge")
-g +geom_text(aes(label = value), position = position_dodge(0.9), 
-             vjust = 0, color = "white", size=6) +
-  scale_fill_brewer(palette="Set1")
-
-#g + geom_text(aes(label = value), 
-#              position = position_dodge(0.9),
-#              vjust = 0)
-
-
+  coord_polar("y", start = 0) + 
+  geom_text(aes(label = value), position = position_stack(vjust = 0.5),
+            vjust = 0, color = "white", size=4)
+g23 <- ggplot(pc1, aes(fill=Sexo, y=V2023, x=Comuna)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar("y", start = 0) + 
+  geom_text(aes(label = V2023), position = position_stack(vjust = 0.5),
+            vjust = 0, color = "white", size=4)
+grid.arrange(g21, g23)
 
 g <- ggplot(CompSex, aes(fill=variable, y=value, x=Comuna)) +
   geom_bar(stat = "identity", position = 'dodge') 
 g + geom_text(aes(label = value), 
-            position = position_dodge(0.9),
-            vjust = 0)
+            position = position_jitterdodge(jitter.height = 0, dodge.width = 0.75),
+            color = "blue", size=4)
 
 p2 <- p %>% group_by(Comuna, RangoEtario) %>% summarise(value = sum(P_Votantes))
 p3 <- dcast(p2, Comuna ~ RangoEtario)
@@ -70,6 +64,17 @@ pc2 <- pc %>% group_by(Comuna, Retario) %>% summarise(V2023 = sum(P_Votantes))
 pc3 <- dcast(pc2, Comuna ~ Retario)
 CompSex <- inner_join(p3, pc3, by="Comuna")
 CompSex <- melt(CompSex, id.vars = "Comuna") 
+g21 <- ggplot(p2, aes(fill=RangoEtario, y=value, x=Comuna)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar("y", start = 0) + 
+  geom_text(aes(label = value), position = position_stack(vjust = 0.5),
+            vjust = 0, color = "white", size=4)
+g23 <- ggplot(pc2, aes(fill=Retario, y=V2023, x=Comuna)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar("y", start = 0) + 
+  geom_text(aes(label = V2023), position = position_stack(vjust = 0.5),
+            vjust = 0, color = "white", size=4)
+grid.arrange(g21, g23)
 g <- ggplot(CompSex, aes(fill=variable, y=value, x=Comuna)) + 
               geom_bar(stat = "identity", position = 'dodge')
 g + geom_text(aes(label = value), 
