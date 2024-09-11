@@ -5,6 +5,8 @@ library(gridExtra)
 library(sqldf)
 library(reshape2)
 
+
+
 #Carga de datos
 load("data/terr_elec.RData")
 load("data/V2023_PConst_VXL.RData")
