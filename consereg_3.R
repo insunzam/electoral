@@ -58,6 +58,7 @@ g + geom_text(aes(label = value),
             position = position_jitterdodge(jitter.height = 0, dodge.width = 0.75),
             color = "blue", size=4)
 
+#Rango etario
 p2 <- p %>% group_by(Comuna, RangoEtario) %>% summarise(value = sum(P_Votantes))
 p3 <- dcast(p2, Comuna ~ RangoEtario)
 pc2 <- pc %>% group_by(Comuna, Retario) %>% summarise(V2023 = sum(P_Votantes))
