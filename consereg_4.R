@@ -43,12 +43,6 @@ dp2 <- dcast(dp, Comuna ~ Local, value.var = "EN.CONTRA")
 dp3 <- dcast(dp, Comuna ~ Local, value.var = "BLYNU")
 
 
-
-
-
-
-
-
 p <- X2021_11_CR_DE_DV %>% 
   filter(NumRegion == 9 & Comuna %in% c("VILCUN")) %>% 
   select(Comuna, Sexo, Mesa, RangoEtario, Nacionalidad, Votantes)
