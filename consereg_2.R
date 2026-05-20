@@ -8,7 +8,7 @@ library(reshape2)
 #setwd("/home/insunzam/R/electoral")
 load("data/CR_2021_DV.RData")
 load("data/PCon_2023_DV.RData")
-load("data/terr_elec.RData")
+#load("data/terr_elec.RData")
 
 # Carga fuentes
 p <- X2021_11_CR_DE_DV %>% 

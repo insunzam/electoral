@@ -5,8 +5,10 @@ library(ggplot2)
 library(gridExtra)
 
 #diputados 2017
-load("data/Diputados_2017.RData")
-X2017_Diputados_Votacion <- X2017_Diputados_Votacion %>% 
+dip2017 <- read_rds("~/R/electoral/data/Diputados_2017.RData")
+#%>%  filter(distrito == 22 & !is.na(candidato) & !is.na(votos_provisorio) & !is.na(pacto))
+#load("data/Diputados_2017.RData")
+X2017_Diputados_Votacion <- dip2017 %>% 
   mutate(Nombre = paste(Nombres,Papellido,Sapellido))
 vd17 <- X2017_Diputados_Votacion %>% filter(N_Region == 9)
 
@@ -21,8 +23,9 @@ p17 <- ggplot(vd17_p, aes(x = Pacto, y= Perc, fill = Pacto)) +
   coord_flip()
 #p17
 #diputados 2021
-load("data/Diputados_2021.RData")
-X2021_11_Diputados_Datos_Eleccion <- X2021_11_Diputados_Datos_Eleccion %>% 
+dip2021 <- read_rds("~/R/electoral/data/Diputados_2021.RData")
+#load("data/Diputados_2021.RData")
+X2021_11_Diputados_Datos_Eleccion <- dip2021 %>% 
   mutate(Nombre = paste(Nombres,Papellido,Sapellido))
 vd21 <- X2021_11_Diputados_Datos_Eleccion %>% filter(N_Region == 9)
 
@@ -37,8 +40,9 @@ p21 <- ggplot(vd21_p, aes(x = Pacto, y= Perc, fill = Pacto)) +
 #p21
 
 #gobernadores 2024
-load("data/Gobernadores_20241v.RData")
-X2024_11_GobernadoresRegionales_Datos_Eleccion_Araucania <- X2024_11_GobernadoresRegionales_Datos_Eleccion_Araucania %>% 
+gob2024 <- read_rds("~/R/electoral/data/Gobernador_2024.RData")
+#load("data/Gobernadores_20241v.RData")
+X2024_11_GobernadoresRegionales_Datos_Eleccion_Araucania <- gob2024 %>% 
   mutate(Nombre = paste(Nombres,`Primer apellido`,`Segundo apellido`))
 df24 <- X2024_11_GobernadoresRegionales_Datos_Eleccion_Araucania %>% 
   select("Distrito","Comuna","Local","Mesa","Lista","Pacto","Partido","Nombre","Votos")
@@ -53,4 +57,4 @@ p24 <- ggplot(lf24, aes(x = Pacto, y= Perc, fill = Pacto)) +
   coord_flip()
 #p24
 
-#grid.arrange(p17, p21, p24, ncol =2)
+grid.arrange(p17, p21, p24, ncol =2)
