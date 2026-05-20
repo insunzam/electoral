@@ -1,0 +1,37 @@
+Antes de ejecutar, descarga los dos archivos y ajusta las rutas en las líneas 30–31:
+RUTA_SERVEL <- "datos/"
+RUTA_INE    <- "datos/ine_censo2017_comunas_urbano_rural.csv"
+
+El Excel de SERVEL viene de: servel.cl/estadisticas-de-padron-electoral-2025/
+El CSV del INE viene de: ine.gob.cl/herramientas/portal-de-mapas/geodatos-abiertos → 
+sección "Datos Censo 2017 Comuna"
+
+Para ejecutar, corre en R o RStudio:
+rsource("cruce_rural_servel_2025.R")
+resultados <- main()
+
+Qué hace el script:
+El pipeline tiene 9 secciones. Carga y limpia ambas fuentes, normaliza automáticamente 
+los nombres de comunas para maximizar el match (tildes, mayúsculas, variantes), calcula 
+el número de electores rurales estimados por comuna aplicando el porcentaje de ruralidad 
+del Censo al padrón 2025, y genera tres salidas en una carpeta output/: un Excel con 5 hojas 
+de resultados, y tres gráficos (top 20 comunas por electores rurales absolutos, ranking 
+por región, y dispersión ruralidad vs. tamaño del padrón).
+Una nota metodológica importante para tu investigación: el dato de "electores rurales" 
+es siempre una estimación, porque el SERVEL no georreferencia electores como urbanos o rurales 
+— el cruce se hace a nivel comunal aplicando el porcentaje del Censo 2017. Si el Censo 2024 
+publica pronto la desagregación comunal urbano/rural, puedes sustituir el CSV del INE en la 
+variable RUTA_INE sin cambiar nada más del script.
+
+
+site:cdn.servel.cl/padronauditado2025 inurl:arch_comunas
+
+https://www.bcn.cl/siit/estadisticasterritoriales/tema?id=95
+
+https://www.odepa.gob.cl/dpto-desarrollo-rural/herramientas/ruralidad-en-chile
+
+https://redatam.ine.gob.cl/redbin/RpWebEngine.exe/Portal?BASE=CENSO_2024&lang=esp
+
+https://censo2024.ine.gob.cl/resultados/
+
+
